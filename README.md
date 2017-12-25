@@ -14,3 +14,12 @@ This is a library which started from the CMPE202 course project [UML-Coder](http
 ## Use it in existing project
 
 1. Look into example on how to use the api for generating class diagram syntax into MainDriver.java file.
+
+
+
+## References
+
+1. [JavaParser Wiki](https://github.com/javaparser/javaparser/wiki)
+2. [JavaParser Javadoc](http://www.javadoc.io/doc/com.github.javaparser/javaparser-core/3.4.0)
+3. [Federico Tomassetti Blog](https://tomassetti.me/getting-started-with-javaparser-analyzing-java-code-programmatically/)
+4. [PlantUml](http://plantuml.com/)
