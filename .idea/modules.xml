@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/java2plantuml.iml" filepath="$PROJECT_DIR$/.idea/modules/java2plantuml.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/java2plantuml_main.iml" filepath="$PROJECT_DIR$/.idea/modules/java2plantuml_main.iml" group="java2plantuml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/java2plantuml_test.iml" filepath="$PROJECT_DIR$/.idea/modules/java2plantuml_test.iml" group="java2plantuml" />
+    </modules>
+  </component>
+</project>

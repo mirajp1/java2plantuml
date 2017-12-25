@@ -1,0 +1,114 @@
+@startuml
+skinparam classAttributeIconSize 0
+class FileHandler{
+- translator : Translator
++ FileHandler(translator : Translator)
+handle(f : File) : void
+}
+class EnumVisitor{
+- translator : Translator
++ EnumVisitor(translator : Translator)
++ visit(n : EnumDeclaration, arg : Void) : void
+}
+EnumVisitor --|> VoidVisitorAdapter
+class DefaultDirector{
++ construct() : ClassDiagramConfig
+}
+class DirectoryExplorer{
+- fileHandler : FileHandler
+fileFilter : FileFilter
++ DirectoryExplorer(fileHandler : FileHandler)
++ explore(file : File) : void
+}
+class ClassVisitor{
+- translator : Translator
++ ClassVisitor(translator : Translator)
++ visit(n : ClassOrInterfaceDeclaration, arg : Void) : void
+}
+ClassVisitor --|> VoidVisitorAdapter
+class ClassDiagramConfig{
+- visitorAdapters : List<VoidVisitorAdapter<Void>>
+- showMethods : boolean
+- showAttributes : boolean
+- showColoredAccessSpecifiers : boolean
+- ClassDiagramConfig()
++ getVisitorAdapters() : List<VoidVisitorAdapter<Void>>
++ setVisitorAdapters(visitorAdapters : List<VoidVisitorAdapter<Void>>) : void
++ isShowMethods() : boolean
++ setShowMethods(showMethods : boolean) : void
++ isShowAttributes() : boolean
++ setShowAttributes(showAttributes : boolean) : void
++ isShowColoredAccessSpecifiers() : boolean
++ setShowColoredAccessSpecifiers(showColoredAccessSpecifiers : boolean) : void
+}
+class UmlTranslator{
+- classSet : Set<ClassOrInterfaceDeclaration>
+- interfaceSet : Set<ClassOrInterfaceDeclaration>
+- enumSet : Set<EnumDeclaration>
+- error : Boolean
+- config : ClassDiagramConfig
++ UmlTranslator()
++ setConfig(config : ClassDiagramConfig) : void
++ addClass(c : ClassOrInterfaceDeclaration) : void
++ addEnum(e : EnumDeclaration) : void
++ addInterface(i : ClassOrInterfaceDeclaration) : void
++ addField(f : FieldDeclaration) : void
++ addMethod(d : MethodDeclaration) : void
++ setError(b : Boolean) : void
++ translateFile(f : File) : void
++ toPlantUml() : String
+- writeAssociations(sb : StringBuilder) : void
+- writeClasses(sb : StringBuilder) : void
+- writeClass(c : ClassOrInterfaceDeclaration, sb : StringBuilder) : void
+- writeAttributes(c : ClassOrInterfaceDeclaration, sb : StringBuilder) : void
+- writeField(f : FieldDeclaration, sb : StringBuilder) : void
+- writeConstructors(c : ClassOrInterfaceDeclaration, sb : StringBuilder) : void
+- writeConstructor(m : ConstructorDeclaration, sb : StringBuilder) : void
+- writeMethods(c : ClassOrInterfaceDeclaration, sb : StringBuilder) : void
+- writeMethod(m : MethodDeclaration, sb : StringBuilder) : void
+- writeModifiers(modifiers : EnumSet<Modifier>, sb : StringBuilder) : void
+- writeEnumerations(sb : StringBuilder) : void
+- writeInterfaces(sb : StringBuilder) : void
+- writeInterface(c : ClassOrInterfaceDeclaration, sb : StringBuilder) : void
+}
+UmlTranslator ..|> Translator
+class InterfaceVisitor{
+- translator : Translator
++ InterfaceVisitor(translator : Translator)
++ visit(n : ClassOrInterfaceDeclaration, arg : Void) : void
+}
+InterfaceVisitor --|> VoidVisitorAdapter
+class MainDriver{
++ {static} main(args : String[]) : void
+}
+class Builder{
+- visitorAdapters : List<VoidVisitorAdapter<Void>>
+- showMethods : boolean
+- showAttributes : boolean
+- showColoredAccessSpecifiers : boolean
++ withVisitor(visitor : VoidVisitorAdapter<Void>) : Builder
++ setShowMethods(showMethods : boolean) : Builder
++ setShowAttributes(showAttributes : boolean) : Builder
++ setShowColoredAccessSpecifiers(showColoredAccessSpecifiers : boolean) : Builder
++ build() : ClassDiagramConfig
+}
+Builder ..|> UmlConfigBuilder
+FileHandler--"- translator" Translator
+EnumVisitor--"- translator" Translator
+DirectoryExplorer--"- fileHandler" FileHandler
+ClassVisitor--"- translator" Translator
+UmlTranslator--"- config" ClassDiagramConfig
+InterfaceVisitor--"- translator" Translator
+interface Translator{
++ addClass(c : ClassOrInterfaceDeclaration) : void
++ addEnum(c : EnumDeclaration) : void
++ addInterface(i : ClassOrInterfaceDeclaration) : void
++ addField(f : FieldDeclaration) : void
++ addMethod(d : MethodDeclaration) : void
++ setError(b : Boolean) : void
++ translateFile(f : File) : void
+}
+interface UmlConfigBuilder{
++ build() : ClassDiagramConfig
+}
+@enduml
